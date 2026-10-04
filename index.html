@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>For you</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <main id="game">
+    <div id="question" class="box"></div>
+    <p id="reaction"></p>
+    <div id="options"></div>
+    <button id="next" hidden>Next</button>
+  </main>
+
+  <script>
+    // ===== EDIT THIS PART: your questions and reactions =====
+    // Each option has: text (what she sees), reaction (what appears when she picks it).
+    // Add  final: true  to the ONE option per question that moves her on.
+    // The other options fade out when picked, and she has to keep trying.
+    const QUESTIONS = [
+      {
+        text: "Whose birthday is it?",
+        options: [
+          { text: "HER NAME HERE",     reaction: "Correct, but boring. Try again." },
+          { text: "HER NICKNAME HERE", reaction: "Closer. Still not the answer I want." },
+          { text: "goodgirl",          reaction: "Hehe, getting warmer." },
+          { text: "Mory's kitty",      reaction: "There it is. Good answer.", final: true }
+        ]
+      },
+      {
+        text: "Question two goes here.",
+        options: [
+          { text: "Wrong answer one",   reaction: "Nope." },
+          { text: "Wrong answer two",   reaction: "Still nope." },
+          { text: "Wrong answer three", reaction: "Not even close." },
+          { text: "The silly right one", reaction: "Yes, that's the one.", final: true }
+        ]
+      }
+    ];
+
+    // The last screen. Leave link as "" if you don't want a button.
+    const ENDING = {
+      text: "Happy birthday! Your paragraph goes here.",
+      link: "",
+      linkLabel: "Open your surprise"
+    };
+    // ===== END OF THE PART YOU EDIT =====
+
+
+    // Grab the page elements we need to change.
+    const questionEl = document.getElementById("question");
+    const reactionEl = document.getElementById("reaction");
+    const optionsEl  = document.getElementById("options");
+    const nextBtn    = document.getElementById("next");
+
+    // Which question we're on (0 = the first one).
+    let current = 0;
+
+    // Draw the current question and its option buttons.
+    function showQuestion() {
+      const q = QUESTIONS[current];
+      questionEl.textContent = q.text;
+      reactionEl.textContent = "";
+      nextBtn.hidden = true;
+      optionsEl.innerHTML = "";
+
+      q.options.forEach(function (opt, i) {
+        const b = document.createElement("button");
+        b.className = "option";
+        b.textContent = (i + 1) + ". " + opt.text;
+        b.addEventListener("click", function () { pick(b, opt); });
+        optionsEl.appendChild(b);
+      });
+    }
+
+    // Runs when she clicks an option.
+    function pick(button, opt) {
+      reactionEl.textContent = opt.reaction;
+      button.disabled = true;
+
+      if (opt.final) {
+        // Right one: fade out all the others and show the Next button.
+        optionsEl.querySelectorAll("button").forEach(function (b) {
+          if (b !== button) { b.classList.add("gone"); }
+          b.disabled = true;
+        });
+        button.classList.add("picked");
+        nextBtn.hidden = false;
+      } else {
+        // Wrong one: just fade this one out.
+        button.classList.add("gone");
+      }
+    }
+
+    // Move on to the next question, or to the ending.
+    nextBtn.addEventListener("click", function () {
+      current++;
+      if (current < QUESTIONS.length) {
+        showQuestion();
+      } else {
+        showEnding();
+      }
+    });
+
+    function showEnding() {
+      questionEl.textContent = ENDING.text;
+      reactionEl.textContent = "";
+      nextBtn.hidden = true;
+      optionsEl.innerHTML = "";
+
+      if (ENDING.link) {
+        const a = document.createElement("a");
+        a.className = "option";
+        a.href = ENDING.link;
+        a.textContent = ENDING.linkLabel;
+        optionsEl.appendChild(a);
+      }
+    }
+
+    showQuestion();
+  </script>
+
+</body>
+</html>

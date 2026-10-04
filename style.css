@@ -1,0 +1,103 @@
+:root {
+  --bg: #2a1233;
+  --box: #3d1c4a;
+  --line: #6b3a7d;
+  --text: #fff1f5;
+  --muted: #c9a6d1;
+  --accent: #ffb3c7;
+}
+
+* { box-sizing: border-box; }
+
+html, body { height: 100%; margin: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Trebuchet MS", system-ui, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+#game {
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.box {
+  background: var(--box);
+  border: 2px solid var(--line);
+  border-radius: 14px;
+  padding: 1.5rem 1.25rem;
+  font-size: clamp(1.2rem, 4.5vw, 1.6rem);
+  line-height: 1.4;
+  text-align: center;
+}
+
+#reaction {
+  min-height: 1.5em;
+  margin: 0;
+  text-align: center;
+  color: var(--accent);
+}
+
+#options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.option, #next {
+  display: block;
+  width: 100%;
+  padding: 1rem 1.25rem;
+  background: transparent;
+  color: var(--text);
+  border: 2px solid var(--line);
+  border-radius: 12px;
+  font: inherit;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.7s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.option:hover:not(:disabled), #next:hover {
+  border-color: var(--accent);
+  background: var(--box);
+}
+
+.option:focus-visible, #next:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* A wrong pick fades away but keeps its space, so nothing jumps around. */
+.gone {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.picked {
+  border-color: var(--accent);
+  background: var(--box);
+}
+
+.option:disabled { cursor: default; }
+
+#next {
+  text-align: center;
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+  font-weight: bold;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .option, #next { transition: none; }
+}
