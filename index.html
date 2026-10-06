@@ -8,40 +8,48 @@
 </head>
 <body>
 
-  <main id="game">
-    <div id="question" class="box"></div>
-    <p id="reaction"></p>
-    <div id="options"></div>
-    <button id="next" hidden>Next</button>
-  </main>
+  <div id="layout">
 
-  <aside id="player">
-    <iframe
-      title="Songs for you"
-      src="https://open.spotify.com/embed/playlist/66ITYHB6foSdCq7fMXZCkN?utm_source=generator&theme=0"
-      width="100%" height="352" style="border:0; border-radius:12px;"
-      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-      loading="lazy"></iframe>
-  </aside>
+    <main id="game">
+      <div id="question" class="box"></div>
+      <p id="reaction"></p>
+      <div id="options"></div>
+      <button id="next" hidden>Next</button>
+    </main>
+
+    <aside id="player">
+      <iframe
+        title="Songs for you"
+        src="https://open.spotify.com/embed/playlist/66ITYHB6foSdCq7fMXZCkN?utm_source=generator"
+        width="100%" height="352" style="border:0; border-radius:12px;"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy"></iframe>
+    </aside>
+
+  </div>
+
+  <button id="secret" aria-label="A little surprise">&#9829;</button>
+  <audio id="song" src="kitkat.mp3" preload="none"></audio>
 
   <script>
+    // ===== EDIT THIS PART: your questions and reactions =====
     const QUESTIONS = [
       {
         text: "Whose birthday is it?",
         options: [
-          { text: "Diamond😋",     reaction: "Nope incorrect" },
-          { text: "Kitkat🍫", reaction: "Almost theree!!" },
-          { text: "My goodboy !!",          reaction: "warmer...." },
-          { text: "Mory's kitty",      reaction: "There it is. good boy!! thats more like it", final: true }
+          { text: "Diamond😋",     reaction: "Nope, incorrect" },
+          { text: "Kitkat🍫",      reaction: "Almost theree!!" },
+          { text: "My goodboy !!", reaction: "warmer...." },
+          { text: "Mory's kitty",  reaction: "There it is. good boy!! thats more like it", final: true }
         ]
       },
       {
         text: "Do you like being teased?",
         options: [
-          { text: "No, Fuck you 😡",   reaction: "bad kitty!!" },
-          { text: "i hate you so much",   reaction: "i love you even more darling" },
-          { text: "Yes daddy tease me more🥺", reaction: ";3", final: true},
-          { text: "...", reaction: "Hint: its the 3rd option!!" }
+          { text: "No, Fuck you",            reaction: "bad kitty!!" },
+          { text: "i hate you so much",      reaction: "i love you even more darling" },
+          { text: "Yes daddy tease me more", reaction: ";3", final: true },
+          { text: "...",                     reaction: "Hint: its the 3rd option!!" }
         ]
       }
     ];
@@ -126,6 +134,27 @@
     }
 
     showQuestion();
+
+    // ----- The secret button: swaps Spotify for your song, and back -----
+    const secretBtn = document.getElementById("secret");
+    const song = document.getElementById("song");
+    const playerBox = document.getElementById("player");
+    const playerFrame = document.querySelector("#player iframe");
+
+    // Remember the player's address so we can restore it.
+    const playerSrc = playerFrame.src;
+
+    secretBtn.addEventListener("click", function () {
+      if (song.paused) {
+        playerFrame.src = "about:blank";
+        playerBox.hidden = true;
+        song.play();
+      } else {
+        song.pause();
+        playerFrame.src = playerSrc;
+        playerBox.hidden = false;
+      }
+    });
   </script>
 
 </body>

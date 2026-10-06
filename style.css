@@ -9,9 +9,13 @@
 
 * { box-sizing: border-box; }
 
-html, body { height: 100%; margin: 0; }
+/* Makes the "hidden" attribute always win (Next button, sidebar). */
+[hidden] { display: none !important; }
 
+html { height: 100%; }
 body {
+  min-height: 100%;
+  margin: 0;
   background: var(--bg);
   color: var(--text);
   font-family: "Trebuchet MS", system-ui, sans-serif;
@@ -21,13 +25,26 @@ body {
   padding: 1rem;
 }
 
-#game {
+/* Game on one side, Spotify on the other; stacks on narrow screens. */
+#layout {
   width: 100%;
+  max-width: 960px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+#game {
+  flex: 1 1 320px;
   max-width: 520px;
   display: flex;
   flex-direction: column;
   gap: 0.9rem;
 }
+
+#player { flex: 1 1 300px; max-width: 400px; }
 
 .box {
   background: var(--box);
@@ -98,6 +115,22 @@ body {
   font-weight: bold;
 }
 
+/* The secret heart: bottom-right corner, almost invisible. */
+#secret {
+  position: fixed;
+  bottom: 12px;
+  right: 12px;
+  background: none;
+  border: 0;
+  font-size: 1.1rem;
+  color: var(--text);
+  opacity: 0.12;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+#secret:hover, #secret:focus-visible { opacity: 0.9; }
+
 @media (prefers-reduced-motion: reduce) {
-  .option, #next { transition: none; }
+  .option, #next, #secret { transition: none; }
 }
