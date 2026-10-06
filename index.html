@@ -64,52 +64,52 @@
       },
       {
         // Slot 3: another tease
-        text: "Question 3 goes here.",
+        text: "Okay!! if you say so, Whos my good obedient lil kitty?? hmm?",
         options: [
-          { text: "Option 1", reaction: "Reaction 1" },
-          { text: "Option 2", reaction: "Reaction 2" },
-          { text: "Option 3", reaction: "Reaction 3" },
-          { text: "Option 4", reaction: "Reaction 4", final: true }
+          { text: "ME ME !! ;3 ", reaction: "THERE U GO BABY!!", final: true },
+          { text: "meeeeee", reaction: "cmonn u gotta be exicted" },
+          { text: "no.", reaction: "why nott" },
+          { text: "Smh", reaction: "whats wronggg?" }
         ]
       },
       {
         // Slot 4: every option is a compliment
-        text: "Question 4 goes here.",
+        text: "Are you a...",
         options: [
-          { text: "Option 1", reaction: "Reaction 1" },
-          { text: "Option 2", reaction: "Reaction 2" },
-          { text: "Option 3", reaction: "Reaction 3" },
-          { text: "Option 4", reaction: "Reaction 4", final: true }
+          { text: "Pretty girl", reaction: "yes you are!" },
+          { text: "very pretty girl!", reaction: "mhmm" },
+          { text: "gorgeous girl!!", reaction: "very gorgeous i love your eyes btw" },
+          { text: "perfect princess ;3", reaction: "yes you're my perfect princess mwahmwah", final: true }
         ]
       },
       {
         // Slot 5: the sweet, sincere one
-        text: "Question 5 goes here.",
+        text: "uhhhh",
         options: [
-          { text: "Option 1", reaction: "Reaction 1" },
-          { text: "Option 2", reaction: "Reaction 2" },
-          { text: "Option 3", reaction: "Reaction 3" },
-          { text: "Option 4", reaction: "Reaction 4", final: true }
+          { text: "Secret!", reaction: "i love your eyes" },
+          { text: "secret 2", reaction: "have u checked the corners yet?" },
+          { text: "secret 3!!", reaction: "uhm im very creative i know also check the right bottom corner!!" },
+          { text: "i love you ", reaction: "i love you more!!, final: true }
         ]
       },
       {
         // Slot 6: something absurd
-        text: "Question 6 goes here.",
+        text: "Do you like the embed",
         options: [
-          { text: "Option 1", reaction: "Reaction 1" },
-          { text: "Option 2", reaction: "Reaction 2" },
-          { text: "Option 3", reaction: "Reaction 3" },
-          { text: "Option 4", reaction: "Reaction 4", final: true }
+          { text: "Yes i love it!!", reaction: "aww im glad" },
+          { text: "no i totally dont!!", reaction: "tsundere smh" },
+          { text: "yes but i love the corner more!!", reaction: "YAYYY", final: true },
+          { text: "..", reaction: "sorry i couldnt come up w an option was too busy thinking abt your belly mmh" }
         ]
       },
       {
         // Slot 7: playful, right before the ending
-        text: "Question 7 goes here.",
+        text: "Do you like the website?!",
         options: [
-          { text: "Option 1", reaction: "Reaction 1" },
-          { text: "Option 2", reaction: "Reaction 2" },
-          { text: "Option 3", reaction: "Reaction 3" },
-          { text: "Option 4", reaction: "Reaction 4", final: true }
+          { text: "no you should've bought me something", reaction: "im going to spank the brat out of u" },
+          { text: "YESS I LOVE IT SM", reaction: "im gladd i love you so much too sorry i couldnt do anything more" },
+          { text: "just marry me already", reaction: "okayy hope u dont mind a diamond on your finger" },
+          { text: "No you should've invested in stocks and came to thai!!", reaction: "wait how'd u know my plan...", final: true }
         ]
       }
     ];
@@ -148,15 +148,11 @@
       button.disabled = true;
 
       if (opt.final) {
-        // Right one: fade out all the others and show the Next button.
-        optionsEl.querySelectorAll("button").forEach(function (b) {
-          if (b !== button) { b.classList.add("gone"); }
-          b.disabled = true;
-        });
+        // Right one: highlight it and reveal Next. The others stay clickable.
         button.classList.add("picked");
         nextBtn.hidden = false;
       } else {
-        // Wrong one: just fade this one out.
+        // Any other one: show its reaction and fade it out.
         button.classList.add("gone");
       }
     }
