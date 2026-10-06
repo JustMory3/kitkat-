@@ -46,6 +46,14 @@ body {
 
 #player { flex: 1 1 300px; max-width: 400px; }
 
+
+#player {
+  background: var(--box);
+  border: 2px solid var(--line);
+  border-radius: 16px;
+  padding: 10px;
+}
+
 .box {
   background: var(--box);
   border: 2px solid var(--line);
