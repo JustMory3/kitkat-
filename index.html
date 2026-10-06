@@ -32,7 +32,17 @@
   <audio id="song" src="kitkat.mp3" preload="none"></audio>
 
   <script>
-    // ===== EDIT THIS PART: your questions and reactions =====
+    // ===== EDIT THIS PART =====
+
+    // 1) THE LAST SCREEN (put your real paragraph in text).
+    //    Leave link as "" if you don't want a button.
+    const ENDING = {
+      text: "Happy birthday! Your paragraph goes here.",
+      link: "",
+      linkLabel: "Open your surprise"
+    };
+
+    // 2) YOUR QUESTIONS. Put final: true on ONE option per question.
     const QUESTIONS = [
       {
         text: "Whose birthday is it?",
@@ -153,6 +163,7 @@
 
     // Move on to the next question, or to the ending.
     nextBtn.addEventListener("click", function () {
+      if (nextBtn.hidden) { return; }   // do nothing until a right answer is picked
       current++;
       if (current < QUESTIONS.length) {
         showQuestion();

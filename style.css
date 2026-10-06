@@ -115,21 +115,24 @@ body {
   font-weight: bold;
 }
 
-/* The secret heart: bottom-right corner, almost invisible. */
+/* The secret heart: bottom-right corner, faint but findable. */
 #secret {
   position: fixed;
   bottom: 12px;
   right: 12px;
+  z-index: 10;
+  padding: 0.5rem;
   background: none;
   border: 0;
-  font-size: 1.1rem;
-  color: var(--text);
-  opacity: 0.12;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--accent);
+  opacity: 0.3;
   cursor: pointer;
   transition: opacity 0.3s;
 }
 
-#secret:hover, #secret:focus-visible { opacity: 0.9; }
+#secret:hover, #secret:focus-visible { opacity: 1; }
 
 @media (prefers-reduced-motion: reduce) {
   .option, #next, #secret { transition: none; }
